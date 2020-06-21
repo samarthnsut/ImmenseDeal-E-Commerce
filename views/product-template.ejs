@@ -1,0 +1,293 @@
+<html>
+    <head>
+        <title>
+            <%= product.pname %>
+        </title>
+        <link href='https://fonts.googleapis.com/css?family=Baumans' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=Bigelow Rules' rel='stylesheet'>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="/product-template.css">
+        <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+      
+    </head>
+
+    <body>
+        <script>
+
+            <% if(flash.success && flash.success.length > 0) { %>
+                new Noty({
+                    theme: 'metroui',
+                    text: "<%= flash.success %>",
+                    type:  'success',
+                    layout:  'topRight',
+                    timeout : 1500
+    
+                }).show();
+                <% } %>
+                <% if(flash.error && flash.error.length > 0) { %>
+                new Noty({
+                    theme: 'metroui',
+                    text: "<%= flash.error %>",
+                    type:  'error',
+                    layout:  'topRight',
+                    timeout : 2000
+    
+                }).show();
+                <% } %>
+    
+            </script>
+  
+        <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
+            <a class="navbar-brand" href="/home">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"><span class="sr-only">(current)</span></a>
+                </li>
+               
+           
+              </ul>
+              <% if(product.account.id===locals.account.id){ %>
+              <a href="/delete-product/<%= product._id%>" id="delp">
+                <button>
+                   <div id="sign-out">
+                    <i class="fas fa-trash-alt"></i> <b> Delete Prduct </b>
+                   </div>
+                </button> 
+                </a>
+             <%}%>
+              <a href="/sign-out">
+                <button>
+                   <div id="sign-out">
+                     <i id="sign" class="fas fa-power-off"></i> <b> sign out</b>
+                   </div>
+                </button> 
+                </a>
+            </div>
+          </nav>
+        
+          <div id="main-div">
+              <div class="col-xl-6" id="left">
+                <img src="<%= product.avatar%>" alt="Product image not available">
+
+                <% var find= false %>
+                <%  for(r of product.ratings) {%>
+                  
+                   <% if(String(r.account._id) === String(locals.account._id)) {%>
+                     
+                         <% find=true %>
+                     
+                         <div id="rating">
+                             <% for(var i=1;i<=r.stars;i++){%>
+                              
+                                <a href="/addrating/<%=product._id%>/1" class="star liked"><i class="fas fa-star" id="str"></i></a>
+                             <%}%>
+                             <%for(var i=r.stars+1;i<=5;i++){%>
+                                <a href="/addrating/<%=product._id%>/1" class="star liked"><i class="far fa-star" id="str"></i></a>
+                            <%}%>
+                         </div>
+                    <%} %> 
+                <%}%>
+                <div id="rating-content">
+                    <div id="stats"  class="col-xl=6">
+                        <h5>Rating : <%= product.ratevalue%></h5>
+                        <p> <%= product.total %> Customer rated the product </p>  
+                    </div>
+                
+
+                    <div id="stat" class="col-xl-4">
+                        <ul>
+                            <li>5 Stars : <%= product.count5%></li>
+                            <li>4 Stars : <%= product.count4%></li>
+                            <li>3 Stars : <%= product.count3%></li>
+                            <li>2 Stars : <%= product.count2%></li>
+                            <li>1 Stars : <%= product.count1%></li>
+                        </ul>
+                    </div>
+                </div>
+               
+                <!-- <script>
+                    $("#stat").hide()
+                    $("#stats").hover(
+                        function(){
+                            $("#stat").show();
+                          
+                        }
+                    )
+                   
+                </script> -->
+                <% if(find===false){ %>
+                    <h2> Rate Product</h2>
+                    <div id="rating">
+                        <a href="/addrating/<%=product._id%>/1" class="star"><i class="far fa-star" id="str"></i></a>
+                        <a href="/addrating/<%=product._id%>/2" class="star"><i class="far fa-star" id="str"></i></a>
+                        <a href="/addrating/<%=product._id%>/3" class="star"><i class="far fa-star" id="str"></i></a>
+                        <a href="/addrating/<%=product._id%>/4" class="star"><i class="far fa-star" id="str"></i></a>
+                        <a href="/addrating/<%=product._id%>/5" class="star"><i class="far fa-star" id="str"></i></a> 
+                    </div>
+                <%}%>
+
+              
+                <div id="add-review">
+                    <h3>
+                        Write a Review :
+                    </h3>
+                        <form action="/comment" method="POST">
+                            <input type="text" name="content" placeholder="review" required>
+                            <input type="hidden" name="product" value="<%= product._id %>" >
+                            <input type="submit" value="add review">
+                        </form>
+                  
+                </div>
+              </div>
+            
+              <div class="col-xl-6" id="right">
+                  <h3 id="pheading">
+                      <%= product.pname %>
+                  </h3> <!-- pheading end -->
+                  <h4 id="price" >Price :  <i class="fas fa-rupee-sign"></i> <%= product.price %></h4>
+                  <div class="text-center col-xl-12">
+                    <a href="/addtocart/<%= product._id %>" class="buttons btn press"><b>ADD To CART</b></a>
+                   
+                  </div>
+                  <div class="text-center col-xl-12">
+                    <a href="#>" class="btn buttons press"><b>BUY</b></a>
+                   
+                  </div>
+                  <h5 id="description"> Description : <%= product.description %></h5>
+
+                  <div id="seller">
+                      <h3 class="text-center" id="sellerhead">
+                          SELLER DETAILS
+                      </h3> <!-- sellhead ends -->
+                      <h5 id="detail">
+                          <div class="vals">
+                              Name : 
+                              &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                              &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                            
+                              <%= product.account.name %>
+                          </div>
+                          <div class="vals">
+                            Phone : 
+                            &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                            &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                          
+                            <%= product.account.phone %>
+                        </div>
+                        <div class="vals">
+                            E Mail : 
+                            &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                           
+                            <%= product.account.e_mail %>
+                        </div>
+                        <% var cid %>
+                       <% for(c of acc.chatting){  %>
+                             
+                            <% if(String(c.item)===String(product._id)) { %>
+                                  <% cid =c._id %>
+                                <%}%> 
+                        <%}%>
+                        
+                        <% if(!cid){ %>
+                        <a href="/create-chatbox/<%=product._id%>">
+                            <button id="start-chat" >Connect With user</button>
+                        </a>
+                        <%} %>
+
+
+                        <button onclick = "createroom()">click</button>
+                     
+                   
+                      </h5> <!-- end of detail heading -->
+                  </div> <!--end of seller div -->
+                
+                  <div>  <!-- comments / reviews-->
+                    <h2 class="text-center"> REVIEWS </h2>
+
+                        <% for(comment of product.comment){%>
+                            <div id="review-div">
+
+                               
+                                    <i class="fas fa-user"></i> <b id="comment-user"><%= comment.account.name %></b>
+                                    <p id="product-content"><%= comment.content %></p> 
+                              
+                                    
+                                <%if(locals.account.id=== comment.account.id){%>
+                                    <div id="delete-comment">
+                                        <a href="/delete-comment/<%= comment._id%>">
+                                            <button > <i class="fas fa-trash-alt"></i></button>
+                                        </a>
+                                    </div>
+                                   
+                                <%}%>
+                            
+                                
+                               
+                            </div>
+
+                       <% } %>
+                  </div>
+                   
+                
+                    <div id="chat-box">
+                        THIS IS A CHAT BOX
+                        <div id="msgs">
+                            <ul id="chat-list">
+                                <li class="buyer">
+                                     msg 1
+                                </li>
+                                <li class="seller"> msg 2</li>
+                            </ul>
+                            <div id="msg-form">
+                                <form class="form-inline" >
+                                    <div class="form-group mb-2 inp">
+                                    
+                                      <input type="text"  class="form-control-plaintext" name="msgcontent" id="chat-msg" placeholder="New message...">
+                                    </div>
+                                    
+                                   <button type="submit" class="btn btn-primary mb-2" id="send-msg">SEND</button>
+                                  </form>
+                            </div>
+                        </div>
+                        
+                      
+                    </div>
+    
+              
+              </div> <!--end of right  -->
+           
+
+          </div><!-- end of main-->
+
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+          <script src="/chat_engine.js"></script>
+          <script>
+              dummy=()=>{
+                  console.log("dummy clicked")
+              }
+             createroom=()=>{
+               console.log("inside create room")
+              new chatEngine('chat-box','<%= cid %>')
+              $("#chat-box").css('display','block');
+
+          }
+     </script>
+                           
+    </body>
+    
+  
+
+</html>

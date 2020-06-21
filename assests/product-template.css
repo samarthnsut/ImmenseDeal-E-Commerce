@@ -1,0 +1,176 @@
+body{
+    background-color: black;
+    color: white;
+}
+#kart-pop
+{
+  position: relative;
+  text-align: left;
+  padding-left: 2em;
+  padding-top: 20px;
+}
+#kart-pop::after
+{
+  position: absolute;
+  content: 'Cart';
+  display: block;
+  font-weight: 700;
+  font-family: Baumans;
+  letter-spacing: 0.087em;
+  left: 2em;
+  transform: scale(0);
+  transition: transform cubic-bezier(0, 1.3, 0.58, 1) 400ms;
+}
+#kart-pop:hover
+{
+  transition: padding-top cubic-bezier(0, 0, 0, 0.96) 300ms;
+  padding-top: 10px; 
+}
+#kart-pop:hover::after
+{
+  transform: scale(1);
+}
+#navbar{
+    background-color: #feda6a;
+}
+#delp{
+    margin-right: 10px;
+}
+img{
+    width: 90%;
+    height: 400px;
+    margin: 30px;
+    padding: 20px;
+    border: 2px black solid;
+}
+#main-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+#left{
+    border-right: 1px white solid;
+}
+#pheading{
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+#price{
+    margin: 15px;
+    font-size: 30px;
+}
+#description{
+    margin: 15px;
+
+}
+#seller{
+    border: 2px black solid;
+    margin: 35px;
+    padding: 13px;
+    margin-top: 30px;
+    background-color: #feda6a;
+    color: black;
+}
+#detail{
+    margin: 10px;
+}
+.vals{
+    margin: 5px;
+}
+#review-div{
+    margin: 15px;
+    padding: 10px;
+    height: 100px;
+}
+#review-div:hover{
+  background-color: #feda6a;
+  color: black;
+}
+#comment-user{
+    font-size: 20px;
+}
+#product-content{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+#delete-comment{
+    transform: translate(560px,-20px);
+    margin: 5px;
+    padding: 2px;
+    
+}
+#add-review{
+    margin: 15px;
+    margin-top: 40px;
+}
+.buttons{
+    border: #feda6a 4px solid;
+    color: #1d1e22;
+    border-radius: 0px;
+    box-shadow: 4px 4px rgb(48, 46, 46); 
+    background-color:  #feda6a;
+    margin: 20px;
+    width: 90%;
+    text-align: center;
+  }
+#rating{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
+}
+.star{
+    margin: 15px;
+}
+.liked{
+    pointer-events: none;
+}
+#stat{
+    background-color: #feda6a;
+    color: black;
+    margin: 15px;
+    display: none;
+ 
+}
+#stats{
+    margin: 15px;
+    transition: width 2s, height 4s;
+}
+#rating-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+#str{
+    color: gold;
+    font-size: 30px;
+  
+}
+#stats:hover+div{
+ display: block;
+ height: 100px;
+ width: 100px;
+}
+#chat-box{
+    display: none;
+    border: 2px wheat solid;
+    width: 300px;
+    height: 400px;
+    position: fixed;
+    transform: translate(350px,-485px);
+    background-color: white;
+    color: black;
+}
+#msg-form{
+    /* transform: translateY(320px); */
+    position:fixed;
+    
+}
+.inp>input{
+    border: 2px black solid;
+}
+#msgs{
+    background-color: blue;
+}
+.right{
+    text-align: right;
+}

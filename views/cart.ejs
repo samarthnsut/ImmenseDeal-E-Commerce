@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CART</title>
+  <link href='https://fonts.googleapis.com/css?family=Baumans' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Bigelow Rules' rel='stylesheet'>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+     <link rel="stylesheet" type="text/css" href="cart.css">
+     <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+     <script src = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+     
+</head>
+<body>
+  <script>
+
+    <% if(flash.success && flash.success.length > 0) { %>
+        new Noty({
+            theme: 'metroui',
+            text: "<%= flash.success %>",
+            type:  'success',
+            layout:  'topRight',
+            timeout : 1500
+
+        }).show();
+        <% } %>
+        <% if(flash.error && flash.error.length > 0) { %>
+        new Noty({
+            theme: 'metroui',
+            text: "<%= flash.error %>",
+            type:  'error',
+            layout:  'topRight',
+            timeout : 2000
+
+        }).show();
+        <% } %>
+
+    </script>
+	<nav class="navbar navbar-light">
+    <h1 class="text-center animate bounce">CART </h1>
+    <a href="home">
+      <button>
+         <div id="sign-out">
+           <i id="sign" class="far fa-hand-point-left"></i> <b> BACK</b>
+         </div>
+      </button> 
+      </a>
+  </nav>
+     
+
+  <div class="col-xl-12 row">
+
+  
+      <% for(p of account.cart) {%>
+
+        <a href="/template/<%= p._id %>" class="productlink">
+                      
+          <div class="back col-xl-3 col-lg-5 card  press" id="p_div3">
+           
+            <div><p><b>Product By : <%= p.account.name %></b></p> 
+
+             
+            </div> 
+               <div class="imgdiv">
+                       <img src="<%= p.avatar %>" alt="product img not available"><br>
+               </div>
+
+               <div >
+               
+                   <div id="price">
+                       <h4>
+                           Rs. <%= p.price %>
+                       </h4>
+                   </div>
+
+                       <h5> Name :  <%= p.pname %><br></h5>  
+                   
+                   <a href="#" class="btn buttons press"><b>BUY</b></a>
+               </div>
+              
+             <div class="dropdown" id="del-from-cart">
+              <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="/remove-cart/<%= p._id%>">Remove From Cart</a>
+              </div>
+            </div>
+            </div>
+        </a>
+       
+     <% } %>
+  </div>
+        

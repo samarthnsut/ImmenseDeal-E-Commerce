@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign In</title>
+  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+      <link rel="stylesheet" type="text/css" href="/signin.css">
+
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+</head>
+<body>
+  <script>
+
+    <% if(flash.success && flash.success.length > 0) { %>
+        new Noty({
+            theme: 'metroui',
+            text: "<%= flash.success %>",
+            type:  'success',
+            layout:  'topRight',
+            timeout : 1500
+
+        }).show();
+        <% } %>
+        <% if(flash.error && flash.error.length > 0) { %>
+        new Noty({
+            theme: 'metroui',
+            text: "<%= flash.error %>",
+            type:  'error',
+            layout:  'topRight',
+            timeout : 2000
+
+        }).show();
+        <% } %>
+
+    </script>
+ <div id="main">
+    <div id="signup">
+      <h1>
+        Sign In
+      </h1>
+    </div>
+    <div id="form">
+      <form action="/create-session" method="POST">  
+        <div class="label"><label><b>Username:</b></label></div>
+        <input type="text" name="u_name"><br><br>
+        <div class="label"><label><b>Password:&nbsp </b></label></div>
+        <input type="Password" name="password"><br><br>
+        <div id="check"><input type="checkbox" name="remember" style="width: 15px; height: 15px; padding-top: 10px;">&nbspRemember Me</div>
+        <br>
+        <div id="buttons">
+          <button type="submit" class="btn btn-primary" id="submit">Sign In</button><br>
+         
+        </div>
+       
+      </form>
+      <a href="/auth/google"><button class="btn btn-danger" id="google"><i class="fab fa-google-plus-g"></i></button></a>
+      
+    </div>
+   </div>
+   <div id="down">
+   <span id="forgot">
+    <a href="maintain">Forgot Password?</a>
+  </span>
+  <span id="sign">
+    New ? <a href="signup">Create account</a>
+  </span>
+</div>
+</body>
+</html>

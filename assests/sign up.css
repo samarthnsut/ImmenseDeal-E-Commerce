@@ -1,0 +1,69 @@
+body
+{
+	background-color: #1d1e22;
+}
+hr{
+	margin: 0px;
+}
+label{
+	margin-left: 5px;
+}
+nav
+{
+	padding-top: 20px;
+	height: 90px;
+	color: #393f4d;
+	background-color: #feda6a;
+	margin-bottom: 0px;
+}
+.navbar
+{
+	
+	padding: 20px;
+}
+h2
+{
+	margin-top: 15px;
+	margin-bottom: 0px;
+	background-color: #bfbfbf;
+}
+form
+{
+	background-color: #1d1e22;
+	color: #f2f2f2;
+}
+.row
+{
+	background-color: #1d1e22;
+	margin: 0px;
+}
+#kart
+{
+	position: absolute;
+	left: 65%;
+	top: 55%;
+}
+.space
+{
+	height: 90px;
+}
+@media (max-width: 1197px)
+{
+	#kart
+	{
+		display: none;
+	}
+}
+#account
+{
+	display: inline-block;
+}
+#acc
+{
+	background-color: #bfbfbf;
+	width: 200%;
+	margin-bottom: 20px;
+	margin-left: -2%;
+	padding-left: 2%;
+	color: black;
+}

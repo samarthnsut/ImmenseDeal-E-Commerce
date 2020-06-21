@@ -1,0 +1,14 @@
+body{
+    background: #393f42;
+}
+.navbar{
+    background-color: #feda6a;
+}
+label{
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+#file{
+    margin: 20px;
+}

@@ -1,0 +1,77 @@
+.navbar{
+    background-color: #feda6a;
+}
+body{
+    background-color: black;
+}
+.press
+{
+  background: #feda6a;
+  border: #feda6a 4px solid;
+  color: #1d1e22;
+  box-shadow: 4px 4px rgb(48, 46, 46); 
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+
+}
+
+#p_div3{
+  background-color: #393f4d;
+  padding: 2px;
+  color: azure;
+  display: flexbox;
+  flex-wrap: wrap;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+#p_div3:hover{
+  background-color:  #feda6a;
+  color: black;
+}
+img{
+  width: 90%;
+  height: 200px;
+}
+.card{
+  background-color: #393f4d;
+}
+.buttons{
+  border: #feda6a 4px solid;
+  color: #1d1e22;
+  border-radius: 0px;
+  box-shadow: 4px 4px rgb(48, 46, 46); 
+  background-color:  #feda6a;
+  margin: 10px;
+  text-align: center;
+}
+@keyframes slid
+{
+  0%{
+    color:  white;
+    background:#393f4d;
+    border: 4px #feda6a solid;
+  }
+  100%{
+    
+    color: white;
+    background: #393f4d;
+    border: 4px #feda6a solid;
+    
+  }
+}
+.buttons:hover
+{
+  animation-name: slid;
+  animation-duration: 5s;
+  animation-fill-mode: forwards;
+}
+.productlink{
+  color: white;
+}
+#del-from-cart{
+  text-align: right;
+}

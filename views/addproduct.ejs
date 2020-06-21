@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <title>ADD PRODUCT</title>
+    </head>
+    <script src="https://kit.fontawesome.com/a47cc588b2.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Baumans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Bigelow Rules' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="addproduct.css">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+
+    <body>
+      <script>
+
+        <% if(flash.success && flash.success.length > 0) { %>
+            new Noty({
+                theme: 'metroui',
+                text: "<%= flash.success %>",
+                type:  'success',
+                layout:  'topRight',
+                timeout : 1500
+
+            }).show();
+            <% } %>
+            <% if(flash.error && flash.error.length > 0) { %>
+            new Noty({
+                theme: 'metroui',
+                text: "<%= flash.success %>",
+                type:  'error',
+                layout:  'topRight',
+                timeout : 2000
+
+            }).show();
+            <% } %>
+
+        </script>
+        <nav class="navbar navbar-expand-lg ">
+            <h1>ADD PRODUCT</h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+              
+              </ul>
+              <a href="home">
+                <button>
+                   <div id="sign-out">
+                     <i id="sign" class="far fa-hand-point-left"></i> <b> BACK</b>
+                   </div>
+                </button> 
+                </a>
+            </div>
+          </nav>
+          <div>
+            <form action="createproduct" enctype="multipart/form-data" method="POST">
+                <div class="form-group col-xl-6 ">
+                  <label>Title</label>
+                  <input type="text" name="pname" class="form-control" id="exampleFormControlInput1" placeholder="enter product title">
+                </div>
+                <div class="form-group col-xl-6 ">
+                  <label>Price</label>
+                  <input type="text" name="price" class="form-control" id="exampleFormControlInput1" placeholder="enter product price">
+                </div>
+               
+                <div class="form-group col-xl-6">
+                  <label >Description</label>
+                  <textarea name="description" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="form-group" id="file">
+                  <label >Upload Image</label>
+                  <input type="file" name="avatar" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+
+
+                <div class="text-center col-xl-6 m-3">
+                    <button class="btn btn-primary text-center" type="submit">Add Product</button>
+                </div>
+              </form>
+          </div>
+    </body>
+</html>
+

@@ -1,0 +1,157 @@
+@keyframes slide1
+{
+  0%
+  {
+    left: -20%;
+    opacity: 0;
+  }
+  100%
+  {
+    left: 44%;
+  }
+}
+@keyframes slide2
+{
+  0%
+  {
+    left: -90%;
+  }
+  50%
+  {
+    left: -70%;
+    opacity: 0;
+  }
+  70%
+  {
+    opacity: 0.3;
+  }
+  100%
+  {
+    left: 34%;
+  }
+}
+@keyframes slide3
+{
+  0%
+  {
+    left: -90%;
+  }
+  70%
+  {
+    left: -70%;
+    opacity: 0;
+  }
+  80%
+  {
+    opacity: 0.3;
+  }
+  100%
+  {
+    left: 40%;
+  }
+}
+@keyframes slide4
+{
+  0%
+  {
+    opacity: 0;
+  }
+  75%
+  {
+    opacity: 0;
+  }
+  100%
+  {
+    opacity: 1;
+  }
+}
+body {
+  background-color: blue;
+}
+#d1
+{
+  color: #f2f2f2;
+  top: 30%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 3.6em;
+  font-weight: 1;
+  position: absolute;
+
+ animation-name: slide1;
+  animation-duration: .7s;
+  animation-fill-mode: forwards;
+}
+body
+{
+  background: #1d1e22;
+}
+#d2
+{
+  color: #f2f2f2;
+  top: 40%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2em;
+  font-weight: 1;
+  position: absolute;
+  animation-name: slide2;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+}
+#d3
+{
+  color: #f2f2f2;
+  top: 47%;
+  font-family: Amatic SC;
+  font-size: 2.3em;
+  font-weight: 1;
+  position: absolute;
+  animation-name: slide3;
+  animation-duration: 2.1s;
+  animation-fill-mode: forwards;
+}
+#d4
+{
+  padding: 1%;
+  background-color: #feda6a;
+  position: absolute;
+  top: 57%;
+  left: 44%;
+  text-decoration: none;
+  color: #1d1e22;
+  font-size: 130%;
+  animation: slide4;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  box-shadow: 4px 4px rgb(71, 70, 70);
+}
+#d5
+{
+  position: absolute;
+  left: 88%;
+  top: 2%;
+  padding: 0.5%;
+  font-size: 100%;
+  font-family: sans-serif;
+  text-decoration: none;
+  background-color: #feda6a;
+  color: #1d1e22;
+  animation: slide4;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  box-shadow: 4px 4px rgb(71, 70, 70);
+}
+#d6
+{
+  position: absolute;
+  left: 93%;
+  top: 2%;
+  font-size: 100%;
+  padding: 0.5%;
+  font-family: sans-serif;
+  background-color: #feda6a;
+  color: black;
+  animation: slide4;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  box-shadow: 4px 4px rgb(71, 70, 70);
+}

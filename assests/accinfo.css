@@ -1,0 +1,18 @@
+body{
+    background-color: #1d1e22;
+}
+#head{
+    background-color: #feda6a;
+    transform: translateY(50px)
+}
+#detail{
+    
+    transform: translateY(50px);
+}
+.info{
+    background-color: #feda6a;
+    margin: 20px;
+}
+.navbar{
+    background-color: #feda6a;
+}
