@@ -43,7 +43,7 @@
                 <% } %>
     
             </script>
-  
+    
         <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
             <a class="navbar-brand" href="/home">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -162,11 +162,43 @@
                    
                   </div>
                   <div class="text-center col-xl-12">
-                    <a href="#>" class="btn buttons press"><b>BUY</b></a>
+                      
+                    <a href="/pay"  class="btn buttons press"><b>BUY</b></a>
                    
                   </div>
                   <h5 id="description"> Description : <%= product.description %></h5>
+                 
+                  <% if(String(locals.account._id)===String(product.account._id)){%>
+                  
+                    <div id="seller">
+                        <h3 class="text-center">Potential Buyer(s)</h3>
 
+                        <% for(buy of product.chatbuyer) {%>
+                            <div id="buyer-p">
+                                <div>
+                                    <h5><%=buy.buyer.name%> :  <%=buy.buyer.e_mail%></h5>
+                                </div>
+                                <div id="chat-btn">
+                                    <button onclick="openroom('<%= buy._id %>')" class="btn btn-dark" >                           
+                                        <i class="fas fa-comment-alt"></i>
+                                    </button>
+                                </div>
+                                <div id="del-chat-btn">
+                                    <a href="/delete-chat-box/<%=buy._id%>">
+                                        <button class="btn btn-dark" >                           
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </a>
+                                   
+                                </div>
+                            
+                               
+                            </div> 
+                        <%}%>
+                    </div>
+  
+                  <%}%>
+                 
                   <div id="seller">
                       <h3 class="text-center" id="sellerhead">
                           SELLER DETAILS
@@ -196,20 +228,19 @@
                         <% var cid %>
                        <% for(c of acc.chatting){  %>
                              
-                            <% if(String(c.item)===String(product._id)) { %>
+                            <% if(String(c.item)===String(product._id)&&(String(c.buyer)===String(locals.account._id))) { %>
                                   <% cid =c._id %>
                                 <%}%> 
                         <%}%>
-                        
-                        <% if(!cid){ %>
-                        <a href="/create-chatbox/<%=product._id%>">
-                            <button id="start-chat" >Connect With user</button>
-                        </a>
-                        <%} %>
-
-
-                        <button onclick = "createroom()">click</button>
-                     
+                        <% if(String(locals.account._id)!=String(product.account._id)){%>
+                            <% if(!cid){ %>
+                            <a href="/create-chatbox/<%=product._id%>">
+                                <button id="start-chat" class="btn btn-primary" >Connect With user</button>
+                            </a>
+                            <%} else{%>
+                            <button  class="btn btn-primary" id="start-chat" onclick = "createroom()">Start Chatting</button>
+                            <%}%>
+                        <%}%>
                    
                       </h5> <!-- end of detail heading -->
                   </div> <!--end of seller div -->
@@ -241,26 +272,46 @@
                        <% } %>
                   </div>
                    
-                
+                   
                     <div id="chat-box">
-                        THIS IS A CHAT BOX
+                        <div id="chat-box-header" style="background-color: blue;">
+                            <div  style=" padding: 5px; color: cornsilk;" class="col-xl-9" >
+                                <% if(String(locals.account._id)===String(product.account._id)){%>
+                                     
+                                    <%}else{%>
+                                       <%= product.account.u_name%>  
+                                    <%}%>
+                            </div>
+                            <div class="dropdown" class="col-xl-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="/close-chat-box">Close Chat Box</a>
+                                  <% if(cid!=null){%>
+                                  <a class="dropdown-item" href="/delete-chat-box/<%=cid%>">Delete Chat box</a>
+                                  <%}%>
+                                 
+                                </div>
+                              </div>
+                          
+                        </div>
+                       
                         <div id="msgs">
                             <ul id="chat-list">
-                                <li class="buyer">
-                                     msg 1
-                                </li>
-                                <li class="seller"> msg 2</li>
+                        
                             </ul>
-                            <div id="msg-form">
-                                <form class="form-inline" >
-                                    <div class="form-group mb-2 inp">
-                                    
-                                      <input type="text"  class="form-control-plaintext" name="msgcontent" id="chat-msg" placeholder="New message...">
-                                    </div>
-                                    
-                                   <button type="submit" class="btn btn-primary mb-2" id="send-msg">SEND</button>
-                                  </form>
-                            </div>
+                           
+                        </div>
+                        <div id="msg-form">
+                            <form class="form-inline" id="msg-form-data">
+                                <div class="form-group mb-2 inp">
+                                
+                                  <input type="text"  class="form-control-plaintext" name="msgcontent" id="chat-msg" placeholder="New message...">
+                                </div>
+                                
+                               <button type="submit" class="btn btn-primary mb-2" id="send-msg">SEND</button>
+                              </form>
                         </div>
                         
                       
@@ -271,20 +322,26 @@
            
 
           </div><!-- end of main-->
-
+           <% var v= false%>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
           <script src="/chat_engine.js"></script>
+       
           <script>
-              dummy=()=>{
-                  console.log("dummy clicked")
+              let openroom=(chatID)=>{
+                  $('#start-chatting').css('display','none')
+                  new chatEngine('chat-box',`${chatID}`,'<%= locals.account._id%>')
+                  $("#chat-box").css('display','block')
               }
-             createroom=()=>{
-               console.log("inside create room")
-              new chatEngine('chat-box','<%= cid %>')
-              $("#chat-box").css('display','block');
+             
+              let createroom=()=>{
 
-          }
+               this.disabled = true
+                new chatEngine('chat-box','<%= cid %>','<%= locals.account._id%>')
+                  $('#start-chat').css('display','none')
+              $("#chat-box").css('display','block');
+              }
      </script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
                            
     </body>
     

@@ -22,7 +22,7 @@ const chatboxSchema= new mongoose.Schema({
     },
     messagelist:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref : 'Messages'
+        ref : 'Message'
     }]
 })
 

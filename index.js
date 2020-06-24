@@ -20,6 +20,7 @@ const { checkAuthentication } = require('./config/passport-local-stategy');
 const { profile } = require('console');
 const  commentMailer = require('./mailers/commentMail')
 const addproduct= require('./mailers/addProduct')
+const paypal = require('paypal-rest-sdk')
 
 //setting up chat server
 const chatServer = require('http').Server(app)
@@ -328,6 +329,12 @@ app.get('/template/:id',checkAuthentication,function(req,res){
         }
     })
     .populate('ratings')
+    .populate({
+        path: 'chatbuyer',
+        populate: {
+            path : 'buyer'
+        }
+    })
     .exec(function(err,product){
         if(err){console.log("error in rendering product",err)}
          Account.findById(req.user._id)
@@ -534,7 +541,8 @@ app.get('/addrating/:id/:num',checkAuthentication,function(req,res){
 
     return res.redirect('back')
 })
-
+//CHATBOX ROUTES
+//Creacting Chatbox
 app.get('/create-chatbox/:id',checkAuthentication,function(req,res){
     let chatboxID= res.locals.account._id+req.params.id
     Chatbox.findOne({name: chatboxID},function(err,chatbox){
@@ -561,9 +569,15 @@ app.get('/create-chatbox/:id',checkAuthentication,function(req,res){
              })
              Product.findById(req.params.id,function(err,product){
                 if(err){console.log("error in creating chatbox", err); return;}
-
-               product.chatbuyer.push(chatbox)
-               product.save()
+                    product.chatbuyer.push(chatbox)
+                    product.save();
+                Account.findById(product.account._id,function(err,account){
+                    if(err){console.log("error in creating chatbox", err); return;}
+    
+                    account.chatting.push(chatbox);
+                    account.save()
+                 })
+               
              })
              console.log("this is the created chat box",chatbox)
            
@@ -572,20 +586,158 @@ app.get('/create-chatbox/:id',checkAuthentication,function(req,res){
          return res.redirect('back')
     })
 })
-
+//Creating Message
 app.post('/createmsg/:id',checkAuthentication,function(req,res){
    Message.create({
          msgcontent: req.body.msgcontent,
          fromUser: req.user._id
    },function(err,message){
+    if(err){console.log('error in creating msg',err); return;}
+       
+
+       console.log("req.params.id",req.params.id)
       Chatbox.findById(req.params.id,function(err,chatbox){
+         if(err){console.log('error in finding msg',err); return;}
 
         chatbox.messagelist.push(message);
         chatbox.save()
-
         console.log("message created and added to chat box",message);
+
+        if(req.xhr)
+        {
+            console.log("inside xhr");
+           (res.status(200).json({
+              data:{
+                msg: message,
+              },
+            mess:'message created'                
+            }))
+            return;
+        }
+        console.log("leaving xhr")
       })
    })
 
-   return res.redirect('back')
+  
 })
+//Closing A chat box
+app.get('/close-chat-box',function(req,res){
+    return res.redirect('back')
+})
+//Deleting A chatbox
+app.get('/delete-chat-box/:id', async function(req,res){
+
+    let ChatBox = await Chatbox.findById(req.params.id);
+      
+       let buyer = ChatBox.buyer
+       let seller = ChatBox.seller
+       let product = ChatBox.item
+       ChatBox.remove();
+
+       let acc=await  Account.findByIdAndUpdate(buyer,{$pull: {chattting: req.params.id}})
+       let ac= await Account.findByIdAndUpdate(seller,{$pull: {chattting: req.params.id}})
+       let p= await Product.findByIdAndUpdate(product,{$pull: {chatbuyer: req.params.id}})
+
+       req.flash('success','chat box deleted')
+       return res.redirect('back')   
+})
+
+//SEARCH PRODUCT
+app.post('/search-products',function(req,res){
+    Product.find({pname: {$regex: `${req.body.search}`}})
+        .populate('account')
+        .populate({
+            path: 'comment',
+            populate: {
+                path: 'account'
+            }
+        })
+        .exec(function(err,product){
+            if(err){
+                console.log("eror in finding user products",err)
+            }      
+           return res.render('home', {
+            
+               product: product,
+        })
+     })
+    
+    })
+
+
+ paypal.configure({
+        'mode' : 'sandbox',
+        'client_id': 'ASXkC83ksx6j56w5pySqcLjMXbhfzhZyilrrPp3AFp87ZUpil9BUEo-X2GjNzTLYP6FvRvWRHc4mk7_M',
+        'client_secret' : 'ECj4eUTjuw2pHnaI3yYq3hukyNrbenCTjdBMZEQdO9EUuYhK4-VXVINLba6n9kMWUqbpnQfXI_vfGBeR'
+ })
+
+ app.get('/pay',function(req,res){
+    var create_payment_json = {
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": "http://localhost/paymentsuccessful",
+            "cancel_url": "http://paymentcancel"
+        },
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "item",
+                    "sku": "item",
+                    "price": "1.00",
+                    "currency": "INR",
+                    "quantity": 1
+                }]
+            },
+            "amount": {
+                "currency": "INR",
+                "total": "1.00"
+            },
+            "description": "This is the payment description."
+        }]
+    };
+    
+    
+
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            console.log("error in creating payment",error);
+        } else {
+            console.log("Create Payment Response");
+            console.log(payment);
+            for(let i=0;i<payment.links.length;i++){
+                if(payment.links[i].rel=== 'approval_url'){
+                    res.redirect (payment.links[i].href);
+                }
+            }
+            
+        }
+    });
+ })
+app.get("/paymentsuccess",function(req,res){
+    const payID =req.query.PayerID
+    const paymentID=req.query.paymentId
+
+    const execute = {
+        "payer_id" :payID,
+        "transactions" : [{
+            "amount":"INR",
+            "total" :"1.00"
+        }]
+    }
+
+    paypal.payment.execute(paymentID,execute,function(err,payment){
+        if(err){console.log("error in making payment",err);return;}
+
+        console.log("get payment response")
+        console.log(JSON.stringify(payment))
+        res.send("payment successful")
+    })
+})
+
+app.get('/paymentcancel',function(req,res){
+   return res.send("payment Cancel")
+})
+    

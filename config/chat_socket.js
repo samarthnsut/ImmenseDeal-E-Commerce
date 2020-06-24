@@ -21,15 +21,18 @@ module.exports.chatSocket = function(chatServer){
 
         
           let chatbox= await Chatbox.findById(data.chatboxID) 
+
           io.in(data.chatboxID).emit('user_joined',data)
-            console.log("chatbox found",chatbox)
+           
+         console.log("chatbox found",chatbox)
+         let chatmsgs = await chatbox.populate('messagelist').execPopulate();
+         
+         socket.emit('display',chatmsgs)
+            
       })
-
-
-     
-
-    socket.on('send_message',function(data){
-      io.in(data.chatroomID).emit('recive_msg',data)
+       socket.on('send_msg',function(data){
+          console.log("here in send msg",data)
+          io.in(data.chatroomID).emit('recive_msg',data)
     })
   })
 

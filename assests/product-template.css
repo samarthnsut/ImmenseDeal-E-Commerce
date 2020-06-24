@@ -152,25 +152,87 @@ img{
 }
 #chat-box{
     display: none;
-    border: 2px wheat solid;
+    border: 2px black solid;
     width: 300px;
     height: 400px;
-    position: fixed;
-    transform: translate(350px,-485px);
+    transform: translateX(350px);
+    position: fixed; 
+    bottom: 0px; 
     background-color: white;
     color: black;
 }
 #msg-form{
-    /* transform: translateY(320px); */
-    position:fixed;
+     transform: translateY(35px); 
+    position: absolute;
+    bottom: 0px;
+    background-color: wheat;
     
 }
 .inp>input{
     border: 2px black solid;
 }
 #msgs{
-    background-color: blue;
+
+    height: 325px;
+    overflow-y: auto;
+    background-color: wheat;
+   
 }
-.right{
+.self-msg{
     text-align: right;
+}
+.self-msg>span{
+    background-color:#feda6a;
+    color: black;
+    border-radius: 5px;
+    border: 2px black solid;
+    padding: 4px;
+    margin: 4px;
+}
+ul{
+  list-style-type: none;
+  transform: translateX(-10px);
+}
+.other-msg>span{
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    border: 2px black solid;
+    padding: 4px;
+    margin: 4px;
+}
+#chat-msg{
+    margin: 10px;
+}
+#send-msg{
+    margin-left: 10px;
+}
+li{
+    margin: 15px;  
+}
+#start-chat{
+    margin-top: 15px;
+}
+#buyer-p{
+    margin: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+#buyer-p:hover{
+    background-color: black;
+    color: white;
+}
+#chat-box-header{
+    display: flex;
+    flex-wrap: wrap;
+}
+#chat-btn{
+    margin-right: 10px;
+    margin-left: 50px;
+}
+#del-chat-btn{
+    margin-right: 10px;
 }
