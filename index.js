@@ -1,7 +1,7 @@
 const express =require('express')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-const port=2000;
+const port=process.env.PORT||2000;
 const db = require("./config/moongose");
 const app=express();
 const Account = require("./modals/Account")
