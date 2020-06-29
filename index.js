@@ -21,6 +21,7 @@ const { profile } = require('console');
 const  commentMailer = require('./mailers/commentMail')
 const addproduct= require('./mailers/addProduct')
 const paypal = require('paypal-rest-sdk')
+const env = require('./config/environment')
 
 //setting up chat server
 const chatServer = require('http').Server(app)
@@ -30,7 +31,7 @@ console.log("chat socket is listening at port 3000")
 
 app.use(session({
     name: 'Buy-Sell Portal',
-    secret: 'fewifhuiehfcq',
+    secret: env.cookie,
     saveUninitialized: false,
     resave: false,
     cookie:{
@@ -667,8 +668,8 @@ app.post('/search-products',function(req,res){
 
  paypal.configure({
         'mode' : 'sandbox',
-        'client_id': 'ASXkC83ksx6j56w5pySqcLjMXbhfzhZyilrrPp3AFp87ZUpil9BUEo-X2GjNzTLYP6FvRvWRHc4mk7_M',
-        'client_secret' : 'ECj4eUTjuw2pHnaI3yYq3hukyNrbenCTjdBMZEQdO9EUuYhK4-VXVINLba6n9kMWUqbpnQfXI_vfGBeR'
+        'client_id': env.paypalClientID,
+        'client_secret' : env.paypalSecret
  })
 
  app.get('/pay',function(req,res){

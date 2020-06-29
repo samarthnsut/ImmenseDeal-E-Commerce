@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/e_commerce_account_db', {UseNewUrlParser: true});
+const env= require('./environment')
+mongoose.connect(env.db, {UseNewUrlParser: true});
 
 var db = mongoose.connection;
 
