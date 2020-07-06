@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { modelName } = require('./abc')
+const { modelName } = require('./Account')
 
 const ratingSchema = new mongoose.Schema({
     account :{

@@ -1,6 +1,6 @@
 const passport=require('passport')
 const LocalStategy= require('passport-local').Strategy
-const Account= require('../modals/abc')
+const Account= require('../modals/Account')
 
 //console.log('inside passport local')
 passport.use(new LocalStategy({
