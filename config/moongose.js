@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const env= require('./environment')
-mongoose.connect(env.db);
+mongoose.connect(env.db,{ useNewUrlParser: true });
 
 var db = mongoose.connection;
 
