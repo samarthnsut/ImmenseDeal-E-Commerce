@@ -15,7 +15,7 @@ const development= {
     },
     googleClientID: "128517218813-00kh225uaklf403i7pjnqgr5m3qhgfhi.apps.googleusercontent.com",
     googleClientSecret: "xdmfwxzKzD1u6HJL0-x-zfI3",
-    googleCallbackURL: "http://localhost:2000/auth/google/callback",
+    googleCallbackURL: "http://immense-inlet-15409.herokuapp.com/auth/google/callback",
     paypalClientID: 'ASXkC83ksx6j56w5pySqcLjMXbhfzhZyilrrPp3AFp87ZUpil9BUEo-X2GjNzTLYP6FvRvWRHc4mk7_M',
     paypalSecret: 'ECj4eUTjuw2pHnaI3yYq3hukyNrbenCTjdBMZEQdO9EUuYhK4-VXVINLba6n9kMWUqbpnQfXI_vfGBeR'
 }
