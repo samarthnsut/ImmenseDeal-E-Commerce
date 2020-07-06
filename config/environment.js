@@ -2,7 +2,7 @@
 const development= {
     name: "development",
     cookie: "secret123",
-    db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/%3Cdbname%3E?retryWrites=true&w=majority",
     smtp:    {
         service : 'gmail',
         host: "smtp.gmail.com",
