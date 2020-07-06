@@ -46,7 +46,6 @@ class chatEngine{
                  msgform.submit(function(e){
                     e.preventDefault();
                     //submitting form 
-
                     console.log("trying to view form data",msgform)
                     $.ajax({
                         type: 'post',

@@ -607,13 +607,13 @@ app.post('/createmsg/:id',checkAuthentication,function(req,res){
         if(req.xhr)
         {
             console.log("inside xhr");
-           (res.status(200).json({
+            return (res.status(200).json({
               data:{
                 msg: message,
               },
             mess:'message created'                
             }))
-            return;
+         
         }
         console.log("leaving xhr")
       })
