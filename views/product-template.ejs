@@ -334,7 +334,7 @@
               }
              
               let createroom=()=>{
-
+                console.log("inside create room")
                this.disabled = true
                 new chatEngine('chat-box','<%= cid %>','<%= locals.account._id%>')
                   $('#start-chat').css('display','none')
