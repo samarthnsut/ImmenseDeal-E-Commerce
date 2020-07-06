@@ -5,10 +5,14 @@ const development= {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/<database name>?retryWrites=true&w=majority",
 =======
     db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/<dbname>?retryWrites=true&w=majority",
 >>>>>>> parent of 1e90f6d... Update environment.js
+=======
+    db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/<database name>?retryWrites=true&w=majority",
+>>>>>>> parent of 83ed284... Update environment.js
 =======
     db:"mongodb+srv://Samarth:samarth@cluster0-xf5s7.mongodb.net/<database name>?retryWrites=true&w=majority",
 >>>>>>> parent of 83ed284... Update environment.js
