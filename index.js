@@ -26,8 +26,8 @@ const env = require('./config/environment')
 //setting up chat server
 const chatServer = require('http').Server(app)
 const chatSocket = require('./config/chat_socket').chatSocket(chatServer)
-chatServer.listen(port)
-console.log("chat socket is listening at port 3000")
+//chatServer.listen(port)
+//console.log("chat socket is listening at port 3000")
 
 app.use(session({
     name: 'Buy-Sell Portal',
@@ -54,7 +54,7 @@ app.use('/uploads', express.static(__dirname + '/uploads'))
 app.use(flash());
 app.use(mwares.setflash);
 
-app.listen(port,function(err){
+chatServer.listen(port,function(err){
     if(err)
     console.log("error")
 

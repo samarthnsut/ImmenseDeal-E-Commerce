@@ -1,10 +1,11 @@
 class chatEngine{
     constructor(chatBoxId, cid, user){
+        
        console.log("this is chat id",cid)
         this.chatBoxId= $(`#${chatBoxId}`)
         this.chatID=cid
         this.user=user
-        this.socket = io.connect('http://localhost:3000')
+        this.socket = io.connect('https://immense-inlet-15409.herokuapp.com/')
         if(cid){
             this.connectionhandler();
         }
